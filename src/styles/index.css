@@ -1,0 +1,24 @@
+/******************* Google Sans *******************/
+
+@font-face{
+    font-family: Google Sans;
+    src: url('../resources/fonts/GoogleSans-Regular.ttf');
+}
+
+@font-face{
+    font-family: Google Sans;
+    src: url('../resources/fonts/GoogleSans-Medium.ttf');
+    font-weight: 500;
+}
+
+@font-face{
+    font-family: Google Sans;
+    src: url('../resources/fonts/GoogleSans-Bold.ttf');
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Google Sans', sans-serif !important;
+    background: #fff !important;
+    margin: 0 !important;
+}
