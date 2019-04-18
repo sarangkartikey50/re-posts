@@ -9,6 +9,11 @@ const styles = {
     root: {
         flexGrow: 1,
         margin: 20
+    },
+    message: {
+        textAlign: 'center',
+        marginTop: '25%',
+        fontSize: '1.5em'
     }
 }
 
@@ -33,13 +38,12 @@ const PostCardContainer = (props) => {
             props.fetchPosts()
         } else {
             let cachedPosts = JSON.parse(localStorage.getItem('posts')) || []
-            console.log(cachedPosts)
             props.updatePosts(cachedPosts)
         }
     }, [])
 
     console.log('posts', posts)
-    if(!posts.length) return <div>Loading...</div>
+    if(!posts.length) return <div className={classes.message}>Sorry! no posts to display.<span role='img' aria-label='sad-emoji'>🙄</span></div>
 
     return (
         <div className={classes.root}>
