@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import PostCard from './postCard'
 import { connect } from 'react-redux'
-import { fetchPosts } from '../actions/index'
+import { fetchPosts, updateCachedPosts } from '../actions/index'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = {
@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return  {
         fetchPosts: () => { dispatch(fetchPosts()) },
-        updatePosts: (payload) => {dispatch({ type: 'UPDATE_POSTS', payload })}
+        updateCachedPosts: () => { dispatch(updateCachedPosts())}
     }
 }
 
@@ -42,12 +42,11 @@ const PostCardContainer = (props) => {
         if(navigator.onLine){
             props.fetchPosts()
         } else {
-            let cachedPosts = JSON.parse(localStorage.getItem('posts')) || []
-            props.updatePosts(cachedPosts)
+            props.updateCachedPosts()
         }
     }, [])
 
-    if(!posts.length) return <div className={classes.progressContainer}><CircularProgress className={classes.progress} color='red' /></div>
+    if(!posts.length) return <div className={classes.progressContainer}><CircularProgress className={classes.progress} /></div>
 
     return (
         <div className={classes.root}>
