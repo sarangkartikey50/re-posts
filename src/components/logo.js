@@ -3,16 +3,14 @@ import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import logoSvg from '../resources/images/logo.svg'
 
-const styles = {
-    logo: {
-        color: 'red'
-    },
+const styles = (theme) => ({
     avatar: {
         height: 40,
         width: 40,
-        margin: 10
+        margin: 10,
+        background: theme.palette.iconColor
     }
-}
+})
 
 const Logo = (props) => {
     const { classes } = props

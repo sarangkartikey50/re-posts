@@ -14,10 +14,17 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Logo from './logo'
 import { connect } from 'react-redux'
+import { Switch } from '@material-ui/core'
 
 const mapStateToProps = (state) => {
   return {
     posts: state.postsReducer.posts
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleTheme: (payload) => dispatch({ type: 'UPDATE_THEME', payload })
   }
 }
 
@@ -26,9 +33,9 @@ const styles = theme => ({
     width: '100%',
   },
   appbar: {
-    backgroundColor: '#fff',
-    boxShadow: '0 15px 40px -20px rgba(40,44,63,.15)',
-    color: '#333'
+    backgroundColor: theme.palette.background,
+    boxShadow: theme.boxShadow,
+    color: theme.palette.text
   },
   grow: {
     flexGrow: 1,
@@ -48,7 +55,7 @@ const styles = theme => ({
     position: 'relative',
     float: 'right',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: '#efefef',
+    backgroundColor: theme.palette.accentBackground,
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
@@ -102,7 +109,13 @@ class SearchAppBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
+    themeCheckBox: false
   };
+
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.checked });
+    this.props.toggleTheme(event.target.checked)
+  }
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -148,13 +161,12 @@ class SearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={this.props.posts.length} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
+        <MenuItem>
+          <Switch
+            checked={this.state.themeCheckBox}
+            onChange={this.handleChange('themeCheckBox')}
+            value="themeCheckBox"
+          />
         </MenuItem>
       </Menu>
     );
@@ -164,25 +176,13 @@ class SearchAppBar extends React.Component {
         <AppBar className={classes.appbar} position="static">
           <Toolbar>
             <Logo />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge badgeContent={this.props.posts.length} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              <Switch
+                checked={this.state.themeCheckBox}
+                onChange={this.handleChange('themeCheckBox')}
+                value="themeCheckBox"
+              />
             </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
@@ -202,4 +202,4 @@ SearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(SearchAppBar))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SearchAppBar))

@@ -5,11 +5,13 @@ import PostCard from './postCard'
 import { connect } from 'react-redux'
 import { fetchPosts, updateCachedPosts } from '../actions/index'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { fade } from '@material-ui/core/styles/colorManipulator'
 
-const styles = {
+const styles = theme => ({
     root: {
         flexGrow: 1,
-        margin: 20
+        padding: 20,
+        background: (theme.palette.background)
     },
     progress: {
         display: 'block',
@@ -20,7 +22,7 @@ const styles = {
     progressContainer: {
         width: '100%'
     }
-}
+})
 
 const mapStateToProps = (state) => {
     return {
@@ -49,16 +51,18 @@ const PostCardContainer = (props) => {
     if(!posts.length) return <div className={classes.progressContainer}><CircularProgress className={classes.progress} /></div>
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={16}>
-                {props.posts.map((post, index) => {
-                    return (
-                        <Grid key={index} item xs={12} sm={3}>
-                            <PostCard post={post} />
-                        </Grid>
-                    )
-                })}
-            </Grid>
+        <div>
+            <div className={classes.root}>
+                <Grid container spacing={16}>
+                    {props.posts.map((post, index) => {
+                        return (
+                            <Grid key={index} item xs={12} sm={3}>
+                                <PostCard post={post} />
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </div>
         </div>
     )
 }

@@ -6,10 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
+const styles = theme => ({
   card: {
     minWidth: 275,
-    boxShadow: '0 5px 40px -20px rgba(40,44,63,.15)'
+    boxShadow: theme.boxShadow,
+    background: theme.palette.background
   },
   bullet: {
     display: 'inline-block',
@@ -18,19 +19,21 @@ const styles = {
   },
   title: {
     fontSize: 10,
-    fontFamily: 'Google Sans'
+    fontFamily: 'Google Sans',
+    color: theme.palette.text
   },
   pos: {
     marginBottom: 12,
   },
   customFont: {
-      fontFamily: 'Google Sans'
+      fontFamily: 'Google Sans',
+      color: theme.palette.text
   },
   actionBlue: {
-      color: '#4285f5',
+      color: theme.palette.primaryColor,
       fontFamily: 'Google Sans'
   }
-};
+})
 
 function PostCard(props) {
   const { classes } = props;
