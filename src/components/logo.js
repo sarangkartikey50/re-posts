@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
-import logoSvg from '../logo.svg'
+import logoSvg from '../resources/images/logo.svg'
 
 const styles = {
     logo: {

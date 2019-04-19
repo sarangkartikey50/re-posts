@@ -4,16 +4,21 @@ import Grid from '@material-ui/core/Grid'
 import PostCard from './postCard'
 import { connect } from 'react-redux'
 import { fetchPosts } from '../actions/index'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = {
     root: {
         flexGrow: 1,
         margin: 20
     },
-    message: {
-        textAlign: 'center',
-        marginTop: '25%',
-        fontSize: '1.5em'
+    progress: {
+        display: 'block',
+        margin: '0 auto',
+        marginTop: '30%',
+        color: '#ea4436'
+    },
+    progressContainer: {
+        width: '100%'
     }
 }
 
@@ -42,8 +47,7 @@ const PostCardContainer = (props) => {
         }
     }, [])
 
-    console.log('posts', posts)
-    if(!posts.length) return <div className={classes.message}>Sorry! no posts to display.<span role='img' aria-label='sad-emoji'>🙄</span></div>
+    if(!posts.length) return <div className={classes.progressContainer}><CircularProgress className={classes.progress} color='red' /></div>
 
     return (
         <div className={classes.root}>
