@@ -10,7 +10,9 @@ const styles = theme => ({
   card: {
     minWidth: 275,
     boxShadow: theme.boxShadow,
-    background: theme.palette.background
+    background: theme.palette.background,
+    width: 300,
+    margin: 20
   },
   bullet: {
     display: 'inline-block',

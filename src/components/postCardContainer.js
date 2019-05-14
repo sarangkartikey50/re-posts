@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 import PostCard from './postCard'
 import { connect } from 'react-redux'
 import { fetchPosts, updateCachedPosts } from '../actions/index'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { FixedSizeGrid } from 'react-window'
 
 const styles = theme => ({
     root: {
@@ -52,15 +52,21 @@ const PostCardContainer = (props) => {
     return (
         <div>
             <div className={classes.root}>
-                <Grid container spacing={16}>
-                    {props.posts.map((post, index) => {
-                        return (
-                            <Grid key={index} item xs={12} sm={3}>
-                                <PostCard post={post} />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+                <FixedSizeGrid
+                    height={window.innerHeight - 100}
+                    rowCount={posts.length/3}
+                    rowSize={200}
+                    rowHeight={350}
+                    width={window.innerWidth}
+                    columnCount={4}
+                    columnWidth={350}
+                >
+                        {({ rowIndex, columnIndex, style }) => (
+                            <div style={style}>
+                                <PostCard key={rowIndex*3 + columnIndex} post={posts[rowIndex*3 + columnIndex]} />
+                            </div>
+                        )}
+                </FixedSizeGrid>
             </div>
         </div>
     )
