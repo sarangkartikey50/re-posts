@@ -49,17 +49,21 @@ const PostCardContainer = (props) => {
 
     if(!posts.length) return <div className={classes.progressContainer}><CircularProgress className={classes.progress} /></div>
 
+    let columnCount = Math.floor(window.innerWidth/350)
+    let rowCount = Math.floor(posts.length/columnCount) + posts.length % columnCount
+    console.log(columnCount, rowCount)
     return (
         <div>
             <div className={classes.root}>
                 <FixedSizeGrid
                     height={window.innerHeight - 100}
-                    rowCount={posts.length/3}
+                    rowCount={rowCount}
                     rowSize={200}
                     rowHeight={350}
-                    width={window.innerWidth}
-                    columnCount={4}
+                    width={370*columnCount}
+                    columnCount={columnCount}
                     columnWidth={350}
+                    style={{display: 'block', margin: '0 auto'}}
                 >
                         {({ rowIndex, columnIndex, style }) => (
                             <div style={style}>
