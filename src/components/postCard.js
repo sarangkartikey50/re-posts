@@ -37,7 +37,7 @@ const styles = theme => ({
 
 function PostCard(props) {
   const { classes } = props;
-
+  if(!props.post) return null
   return (
     <Card className={classes.card}>
       <CardContent>

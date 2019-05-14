@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SearchAppBar from './searchAppBar'
 import PostCardContainer from './postCardContainer'
-import { withStyles } from '@material-ui/core/styles'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import { grey, blue, red } from '@material-ui/core/colors'
 import { connect } from 'react-redux'

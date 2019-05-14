@@ -5,7 +5,6 @@ import PostCard from './postCard'
 import { connect } from 'react-redux'
 import { fetchPosts, updateCachedPosts } from '../actions/index'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { fade } from '@material-ui/core/styles/colorManipulator'
 
 const styles = theme => ({
     root: {
