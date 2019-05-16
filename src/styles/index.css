@@ -22,3 +22,5 @@ body {
     background: #fff !important;
     margin: 0 !important;
 }
+
+*::-webkit-scrollbar { width: 0 !important }

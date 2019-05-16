@@ -9,7 +9,6 @@ import { FixedSizeGrid } from 'react-window'
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        padding: 20,
         background: (theme.palette.background)
     },
     progress: {
@@ -20,6 +19,10 @@ const styles = theme => ({
     },
     progressContainer: {
         width: '100%'
+    },
+    grid: {
+        display: 'block', 
+        margin: '0 auto', 
     }
 })
 
@@ -56,14 +59,14 @@ const PostCardContainer = (props) => {
         <div>
             <div className={classes.root}>
                 <FixedSizeGrid
-                    height={window.innerHeight - 100}
+                    height={window.innerHeight - 60}
                     rowCount={rowCount}
                     rowSize={200}
                     rowHeight={350}
                     width={370*columnCount}
                     columnCount={columnCount}
                     columnWidth={350}
-                    style={{display: 'block', margin: '0 auto'}}
+                    className={classes.grid}
                 >
                         {({ rowIndex, columnIndex, style }) => (
                             <div style={style}>
