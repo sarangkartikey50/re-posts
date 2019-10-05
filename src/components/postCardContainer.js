@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import PostCard from './postCard'
 import { connect } from 'react-redux'
@@ -41,6 +41,14 @@ const mapDispatchToProps = (dispatch) => {
 
 const PostCardContainer = (props) => {
     let { classes, posts } = props
+    
+    const [ height, setHeight ] = useState(0);
+    const [ width, setWidth ] = useState(0);
+
+    let updateWindowDimensions = () =>{        
+        setHeight(window.innerHeight)
+        setWidth(window.innerWidth)
+    }
 
     useEffect(() => {
         if(navigator.onLine){
@@ -48,18 +56,25 @@ const PostCardContainer = (props) => {
         } else {
             props.updateCachedPosts()
         }
+        updateWindowDimensions()
+        window.addEventListener('resize', updateWindowDimensions);
+
+        return ()=>{
+            window.removeEventListener('resize', updateWindowDimensions);
+        }
     }, [])
+    
 
     if(!posts.length) return <div className={classes.progressContainer}><CircularProgress className={classes.progress} /></div>
-
-    let columnCount = Math.floor(window.innerWidth/350)
+    
+    let columnCount = Math.floor(width/350)
     let rowCount = Math.floor(posts.length/columnCount) + posts.length % columnCount
     console.log(columnCount, rowCount)
     return (
         <div>
             <div className={classes.root}>
                 <FixedSizeGrid
-                    height={window.innerHeight - 60}
+                    height={height - 60}
                     rowCount={rowCount}
                     rowSize={200}
                     rowHeight={350}
